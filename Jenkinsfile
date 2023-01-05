@@ -53,7 +53,8 @@ pipeline{
                     cd src/test
                     docker compose up -d app --build
                     docker compose up tester --build
-                    checkpoint=docker logs test-tester-1 | grep -i failures | cut -d " " -f1
+                    
+                    checkpoint=\$(docker logs test-tester-1 | grep -i failures | cut -d " " -f3)
                     if [ \$checkpoint -ne "" ] 
                     then
                         echo "\$checkpoint tests faild"

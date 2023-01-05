@@ -51,8 +51,8 @@ pipeline{
 
                 sh """
                     cd src/test
-                    docker compose up -d app
-                    docker compose up tester
+                    docker compose up -d app --build
+                    docker compose up tester --build
                 """
             }
             post{

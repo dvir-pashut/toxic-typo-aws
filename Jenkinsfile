@@ -34,21 +34,6 @@ pipeline{
                         sh "mvn -s ${set} verify"
                     } 
                 }
-                
-                // creating network if not exist
-                sh "docker network create test-net || { echo alreadyexist; }"
-                
-                // starting the apps for the tests
-                sh "docker run -d --network test-net --name tox-app toxictypoapp:1.0-SNAPSHOT"
-                sh "docker run -d --network test-net --name tox-app2 toxictypoapp:1.0-SNAPSHOT"
-                sh "docker run -d --network test-net --name tox-app3 toxictypoapp:1.0-SNAPSHOT"
-                sh "sleep 7"
-                
-                // build the tests image and wait untill the apps are ready to get tested on 
-                sh """
-                    cd src/test
-                    docker build -t test-app .
-                """
             }
             post{
                 success{
@@ -64,18 +49,13 @@ pipeline{
                 echo "========executing tests========"
                 
 
-                //run the tests... 3 tests apps vs 3 apps 
-                sh """
-                    docker run  --network test-net --name tests-app -e from=20  -e to=120 -e app=tox-app:8080 test-app:latest &
-                    docker run  --network test-net --name tests-app2 -e from=120 -e to=240  -e app=tox-app2:8080 test-app:latest &
-                    docker run --network test-net --name tests-app3 -e from=270  -e to=399 -e app=tox-app3:8080 test-app:latest
-                """
+                sh "docker compose up -d --build"
             }
             post{
                 always{
                     echo "========tests are done========"
                     // remove all tests continers on finish
-                    sh "docker rm -f tests-app2 tests-app tox-app tox-app2 tox-app3 tests-app3"
+                    sh "docker rm -f tests-app tox-app "
                 }
                 success{
                     echo "========tests executed successfully========"

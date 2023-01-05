@@ -55,11 +55,12 @@ pipeline{
                     docker compose up tester --build
                     
                     checkpoint=\$(docker logs test-tester-1 | grep -i failures | cut -d " " -f3)
-                    if [  \$checkpoint != ""  ] 
+                    if [  "\$checkpoint" != ""  ] 
                     then
                         echo "\$checkpoint tests faild"
                         exit 1
                     fi
+                    
                 """
             }
             post{

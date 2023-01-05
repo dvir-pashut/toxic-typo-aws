@@ -57,6 +57,7 @@ pipeline{
                     if [ \$checkpoint -ne "" ] 
                     then
                         echo "\$checkpoint tests faild"
+                    fi
                 """
             }
             post{

@@ -52,6 +52,7 @@ pipeline{
                 sh """
                     cd src/test
                     docker compose up --build & 
+                    wait
                 """
             }
             post{

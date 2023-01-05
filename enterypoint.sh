@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pushd target
+cd target
 java -jar toxictypoapp-1.0-SNAPSHOT.jar
 
 ###

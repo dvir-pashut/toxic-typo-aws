@@ -26,13 +26,6 @@ pipeline{
         }
 
         stage("build"){
-            // happend only on branch main or feature
-            when{
-                anyOf {
-                    branch "main"
-                    branch "feature/*"
-                }
-            }
             steps{
                 // starting build
                 echo "========executing build========"
@@ -67,17 +60,10 @@ pipeline{
             }
         }
         stage("tests"){
-            // happend only on branch main or feature
-            when{
-                anyOf {
-                    branch "main"
-                    branch "feature/*"
-                }
-            }
             steps{
                 echo "========executing tests========"
                 
-                
+
                 //run the tests... 3 tests apps vs 3 apps 
                 sh """
                     docker run  --network test-net --name tests-app -e from=20  -e to=120 -e app=tox-app:8080 test-app:latest &
@@ -100,12 +86,6 @@ pipeline{
             }
         }
         stage("deploy"){
-            // happend only on branch main 
-            when{
-                anyOf {
-                    branch "main"
-                }
-            }
             steps{
                 echo "========executing deploy========"
                 

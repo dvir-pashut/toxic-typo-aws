@@ -54,9 +54,10 @@ pipeline{
                         docker compose up -d app --build
                         docker compose up tester --build
                         
-                        docker logs test-tester-1 | grep -i failures || { ?=1; }
+                        check=0
+                        docker logs test-tester-1 | grep -i failures || { check=1; }
                         
-                        if [  \$? = 0 ] 
+                        if [  \$check = 0 ] 
                         then
                             echo "tests faild"
                             exit 1

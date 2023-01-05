@@ -59,7 +59,7 @@ pipeline{
                 always{
                     echo "========tests are done========"
                     // remove all tests continers on finish
-                    sh "docker rm -f tests-app tox-app "
+                    sh "docker compose down"
                 }
                 success{
                     echo "========tests executed successfully========"

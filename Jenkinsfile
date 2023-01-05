@@ -56,7 +56,7 @@ pipeline{
                     
                     docker logs test-tester-1 | grep -i failures 
                     
-                    if [  $? = 0  ] 
+                    if [  \$? = 0  ] 
                     then
                         echo "tests faild"
                         exit 1

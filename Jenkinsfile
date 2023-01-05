@@ -49,7 +49,10 @@ pipeline{
                 echo "========executing tests========"
                 
 
-                sh "docker compose up -d --build"
+                sh """
+                    cd src/test
+                    docker compose up -d --build
+                """
             }
             post{
                 always{

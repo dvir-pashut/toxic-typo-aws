@@ -59,7 +59,10 @@ pipeline{
                 always{
                     echo "========tests are done========"
                     // remove all tests continers on finish
-                    sh "docker compose down"
+                    sh """
+                        cd src/test
+                        docker compose down
+                    """
                 }
                 success{
                     echo "========tests executed successfully========"

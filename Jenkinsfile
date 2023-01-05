@@ -53,6 +53,7 @@ pipeline{
                     cd src/test
                     docker compose up -d app --build
                     docker compose up tester --build
+                    docker logs test-tester-1 | grep -i failures
                 """
             }
             post{

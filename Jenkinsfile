@@ -21,7 +21,7 @@ pipeline{
                 deleteDir()
                 checkout scm
                 sh "mvn clean"
-                sh "git checkout ${GIT_BRANCH}"
+                sh "git status"
             }
         }
 

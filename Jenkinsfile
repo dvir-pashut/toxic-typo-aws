@@ -1,7 +1,6 @@
 pipeline{
     agent any
     options{
-        
         // set time stamps on the log
         timestamps()
         

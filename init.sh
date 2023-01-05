@@ -4,9 +4,8 @@ ec2_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 
 # remove from target group
 aws elbv2 deregister-targets \
---target-group-arn arn:aws:elasticloadbalancing:eu-west-3:644435390668:targetgroup/dvirtg/8cdc359352c43e17 \
+--target-group-arn arn:aws:elasticloadbalancing:eu-west-3:644435390668:loadbalancer/app/dvir-project/3281ef7cb5c2c7a9 \
 --targets Id="${ec2_id}"
---debug
 
 sleep 3
 
@@ -21,5 +20,5 @@ curl -X POST -F "name=${ec2_id}" "http://localhost:8080/api/name"
 
 # add back to target group
 aws elbv2 register-targets \
---target-group-arn arn:aws:elasticloadbalancing:eu-west-3:644435390668:targetgroup/dvirtg/8cdc359352c43e17 \
+--target-group-arn arn:aws:elasticloadbalancing:eu-west-3:644435390668:loadbalancer/app/dvir-project/3281ef7cb5c2c7a9\
 --targets Id="${ec2_id}"

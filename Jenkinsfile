@@ -105,6 +105,7 @@ pipeline{
                 sh "ssh ubuntu@172.31.44.141 aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com"
                 sh "scp init.sh ubuntu@172.31.44.141:/home/ubuntu" 
                 sh "ssh ubuntu@172.31.44.141 bash init.sh"
+                
             }
             post{
                 always{

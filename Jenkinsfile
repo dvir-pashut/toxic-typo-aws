@@ -77,6 +77,7 @@ pipeline{
             steps{
                 echo "========executing tests========"
                 
+                
                 //run the tests... 3 tests apps vs 3 apps 
                 sh """
                     docker run  --network test-net --name tests-app -e from=20  -e to=120 -e app=tox-app:8080 test-app:latest &

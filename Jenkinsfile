@@ -98,7 +98,6 @@ pipeline{
                 }
             }
         }
-        
         stage("deploy"){
             // happend only on branch main 
             when{

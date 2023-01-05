@@ -54,7 +54,7 @@ pipeline{
                         docker compose up -d app --build
                         docker compose up tester --build
                         
-                        docker logs test-tester-1 
+                        docker logs test-tester-1 | grep -i failures
                         
                         if [  \$? = 0 ] 
                         then

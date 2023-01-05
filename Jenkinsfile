@@ -56,11 +56,11 @@ pipeline{
                         
                         docker logs test-tester-1 
                         
-                        // if [  \$? = 0 ] 
-                        // then
-                        //     echo "tests faild"
-                        //     exit 1
-                        // fi
+                        if [  \$? = 0 ] 
+                        then
+                            echo "tests faild"
+                            exit 1
+                        fi
                         
                     """
                 }

@@ -104,7 +104,6 @@ pipeline{
                 sh "scp init.sh ubuntu@172.31.40.90:/home/ubuntu" 
                 sh "ssh ubuntu@172.31.40.90 bash init.sh"
             }
-            
             post{
                 always{
                     echo "========deploy are done========"

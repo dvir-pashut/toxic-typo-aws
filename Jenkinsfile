@@ -102,7 +102,7 @@ pipeline{
                 sh "ssh ubuntu@172.31.40.90 bash init.sh"
                 // call the api 
                 sh "sleep 10"
-                ssh "curl -X POST -d 'name=dvir' 172.31.40.90/api/name"
+                sh "ssh curl -X POST -d 'name=dvir' 172.31.40.90/api/name"
                 
                 
 

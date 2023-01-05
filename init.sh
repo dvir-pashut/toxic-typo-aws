@@ -16,7 +16,7 @@ docker run -d -p 8080:8080 --name tox-app 644435390668.dkr.ecr.eu-west-3.amazona
 
 sleep 7
 
-curl -X POST -F "name=${ec2_id}" "http://localhost/api/name"
+curl -X POST -F "name=${ec2_id}" "http://localhost:8080/api/name"
 
 
 # add back to target group

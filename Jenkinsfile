@@ -1,7 +1,6 @@
 pipeline{
     agent any
     options{
-        
         // set time stamps on the log
         timestamps()
         
@@ -119,7 +118,6 @@ pipeline{
                 //deploying the new image to the production ec2 machine2//
                 sh "scp init.sh ubuntu@172.31.44.141:/home/ubuntu" 
                 sh "ssh ubuntu@172.31.44.141 bash init.sh"
-
             }
             post{
                 always{

@@ -88,6 +88,7 @@ pipeline{
             steps{
                 // publishing the docker image to ECR
                 echo "========executing publish========"
+                
                 // taging the image so i will be able to send it to the repo//
                 sh "docker tag toxictypoapp:1.0-SNAPSHOT dvir-toxictypo "
                 
@@ -110,6 +111,7 @@ pipeline{
 
         stage("deploy"){
             steps{
+                //deploying the new images to productiont (cd baby)//
                 echo "========executing deploy========"
                 //deploying the new image to the production ec2 machine1//
                 sh "scp init.sh ubuntu@172.31.26.16:/home/ubuntu" 

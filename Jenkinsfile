@@ -32,7 +32,7 @@ pipeline{
                 withMaven {
                      configFileProvider([configFile(fileId: '0a5edd42-4379-4509-a49e-d8ba1384edeb', variable: 'set')]) {
                         sh "mvn -s ${set} verify"
-                    } 
+                    } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
                 }
             }
             post{
@@ -51,17 +51,20 @@ pipeline{
                 script{
                     sh """
                         cd src/test
+                        
+                        # startup the test environment 
                         docker compose up -d app --build
                         docker compose up tester --build
                         
+                        #function that will check if tests passed or faild
                         check=0
                         docker logs test-tester-1 | grep -i failures || { check=1; }
-                        
                         if [  \$check = 0 ] 
                         then
                             echo "tests faild"
                             exit 1
                         fi
+
                     """
                 }
             }
@@ -82,11 +85,10 @@ pipeline{
                 }
             }
         }
-        
-        stage("deploy"){
+         stage("publish"){
             steps{
-                echo "========executing deploy========"
-                
+                // publishing the docker image to ECR
+                echo "========executing publish========"
                 // taging the image so i will be able to send it to the repo//
                 sh "docker tag toxictypoapp:1.0-SNAPSHOT dvir-toxictypo "
                 
@@ -96,14 +98,25 @@ pipeline{
                         docker.image("dvir-toxictypo").push()
                     }
                 }
-                
+            }
+            post{
+                success{
+                    echo "========build executed successfully========"
+                }
+                failure{
+                    echo "========build execution failed========"
+                }
+            }
+        }
+
+        stage("deploy"){
+            steps{
+                echo "========executing deploy========"
                 //deploying the new image to the production ec2 machine1//
-                //sh "ssh ubuntu@172.31.26.16 aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com"
                 sh "scp init.sh ubuntu@172.31.26.16:/home/ubuntu" 
                 sh "ssh ubuntu@172.31.26.16 bash init.sh"
                 
                 //deploying the new image to the production ec2 machine2//
-                //sh "ssh ubuntu@172.31.44.141 aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com"
                 sh "scp init.sh ubuntu@172.31.44.141:/home/ubuntu" 
                 sh "ssh ubuntu@172.31.44.141 bash init.sh"
 

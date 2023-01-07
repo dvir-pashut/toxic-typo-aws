@@ -51,11 +51,11 @@ pipeline{
                     sh """
                         cd src/test
                         
-                        # startup the test environment 
+                        ## startup the test environment 
                         docker compose up -d app --build
                         docker compose up tester --build
                         
-                        #function that will check if tests passed or faild
+                        ##function that will check if tests passed or faild
                         check=0
                         docker logs test-tester-1 | grep -i failures || { check=1; }
                         if [  \$check = 0 ] 
@@ -63,7 +63,6 @@ pipeline{
                             echo "tests faild"
                             exit 1
                         fi
-
                     """
                 }
             }
@@ -98,7 +97,6 @@ pipeline{
                         docker.image("dvir-toxictypolb").push()
                     }
                 }
-                
             }
             post{
                 success{

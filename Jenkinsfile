@@ -84,18 +84,18 @@ pipeline{
                 }
             }
         }
-         stage("publish"){
+        stage("publish"){
             steps{
                 // publishing the docker image to ECR
                 echo "========executing publish========"
                 
                 // taging the image so i will be able to send it to the repo//
-                sh "docker tag toxictypoapp:1.0-SNAPSHOT dvir-toxictypo "
+                sh "docker tag toxictypoapp:1.0-SNAPSHOT dvir-toxictypolb"
                 
                 // publish the image to the ecr//
                 script{
                     docker.withRegistry("http://644435390668.dkr.ecr.eu-west-3.amazonaws.com", "ecr:eu-west-3:aws-develeap") {
-                        docker.image("dvir-toxictypo").push()
+                        docker.image("dvir-toxictypolb").push()
                     }
                 }
             }

@@ -98,6 +98,7 @@ pipeline{
                         docker.image("dvir-toxictypolb").push()
                     }
                 }
+                
             }
             post{
                 success{

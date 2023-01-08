@@ -2,6 +2,8 @@
 
 ec2_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 
+aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com
+
 # remove from target group
 aws elbv2 deregister-targets \
 --target-group-arn arn:aws:elasticloadbalancing:eu-west-3:644435390668:targetgroup/dvirtg/8cdc359352c43e17 \

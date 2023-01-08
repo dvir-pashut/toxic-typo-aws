@@ -107,11 +107,11 @@ pipeline{
                 }
             }
         }
-
         stage("deploy"){
             steps{
                 //deploying the new images to productiont (cd baby)//
                 echo "========executing deploy========"
+                
                 //deploying the new image to the production ec2 machine1//
                 sh "scp init.sh ubuntu@172.31.26.16:/home/ubuntu" 
                 sh "ssh ubuntu@172.31.26.16 bash init.sh"

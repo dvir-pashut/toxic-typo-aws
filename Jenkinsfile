@@ -46,7 +46,6 @@ pipeline{
         stage("tests"){
             steps{
                 echo "========executing tests========"
-                
                 script{
                     sh """
                         cd src/test
